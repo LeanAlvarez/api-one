@@ -7,9 +7,9 @@ const Router = express.Router()
 
 Router.get('/', ProductCtrl.index)
       .post('/')
-      .get('/:key/:value')
-      .put('/:key/:value')
-      .delete('/:key/:value')  
+      .get('/:key/:value', ProductCtrl.find, ProductCtrl.show)
+      .put('/:key/:value', ProductCtrl.find, ProductCtrl.update)
+      .delete('/:key/:value', ProductCtrl.find, ProductCtrl.remove)  
 
 
 
