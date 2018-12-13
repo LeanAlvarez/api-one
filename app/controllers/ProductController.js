@@ -11,8 +11,10 @@ function index(req, res){
 
 function show(req, res){
     if(req.body.error) return res.status(500).send(error)
-    if(req.body.products) return res.status(200).send({products})
-    return res.status(404).send({message: 'Not Found'})
+    if(!req.body.products) return res.status(404).send({message: 'Not Found'}) 
+    let products = req.body.products
+    return res.status(200).send({products})
+    
 }
 
 function create(req, res){
@@ -37,7 +39,7 @@ function remove(req, res){
 function find(req, res, next){
     let query = {}
     query[req.params.key] = req.params.value
-    Product.find({query}).them(products => {
+    Product.find(query).then(products => {
         if(!products.length) return next()
         req.body.products = products
         return next()
